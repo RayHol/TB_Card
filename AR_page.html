@@ -1,99 +1,93 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <!-- Set the viewport and initial scale for mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <!-- Enable full-screen mode on Apple devices -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    
-    <!-- Set the character encoding -->
     <meta charset="UTF-8" />
-
-    <!-- Include the A-Frame library for WebVR development -->
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-    
-    <!-- Include the MIND AR library for augmented reality features -->
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
-    
-    <!-- Include the custom JavaScript file for AR functionality -->
-    <script src=".\Scripts\ar_page.js"></script>
-
-    <!-- Set the title of the webpage -->
-    <title>Smartify - Auschwitz _ AR_Demo</title>
-    
-    <!-- Include the Poppins font from Google Fonts -->
+    <title>Smartify - Tower Bridge AR Demo</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap">
-    
-    <!-- Include the custom CSS file for styling -->
-    <link rel="stylesheet" href=".\Scripts\ar_page.css">
 </head>
-
 <body>
-    <!-- Background container -->
-    <div id="background"></div>
-    
-    <!-- Text to prompt the user to point the camera at the painting -->
-    <div id="startText">Point your camera at the image</div>
-    
-    <!-- Audio prompt container -->
-    <div id="audioPrompt">
-        <button id="audioButton">
-            <img id="audioPromptIcon" src=".\Assets\mute-icon.svg" alt="Audio Icon">
-            Enable Audio
-        </button>
-    </div>
-
-    <!-- New back button -->
-    <button id="backButton"></button>
-
-    <!-- A-Frame scene container -->
     <a-scene
-        mindar-image="imageTargetSrc: .\Assets\Auschwitz_targets.mind; warmupTolerance: 10; missTolerance: 1; filterMinCF: 0.0001; filterBeta: 0.001"
+        mindar-image="imageTargetSrc: ./Assets/targets.mind; warmupTolerance: 10; missTolerance: 1; filterMinCF: 0.0001; filterBeta: 0.001"
         color-space="sRGB"
         renderer="colorManagement: true, physicallyCorrectLights"
         vr-mode-ui="enabled: false"
         device-orientation-permission-ui="enabled: false"
         loading-screen="enabled: false"
     >
-        <!-- Asset container -->
         <a-assets>
-            <!-- Video asset for the AR experience -->
-            <video id="video" src=".\Assets\Auschwitz.mp4" preload="auto" response-type="arraybuffer" loop
-                crossorigin="anonymous" webkit-playsinline autoplay muted playsinline>
-            </video>
-        <a-asset-item id="mainGateModel" src="./Assets/auschwitz_main_gate.glb"></a-asset-item>
-
-            
-            <!-- Background audio asset -->
-<!--             <audio id="backgroundAudio" src="./Assets/background_v2.mp3" preload="auto" loop crossorigin="anonymous"></audio> -->
+            <a-asset-item id="Bridge" src="./Assets/TowerBridgeSM.glb"></a-asset-item>
         </a-assets>
 
-        <!-- Camera entity -->
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-        
-        <!-- Ambient light entity -->
         <a-light type="ambient" color="#FFF"></a-light>
-        
-        <!-- AR target entity -->
-        <a-entity id="target" mindar-image-target="targetIndex: 0" ar-controller
-            smooth-position="target: #videooverlay; factor: 0.1">
-            <a-plane id="videooverlay" height="0.8" width="1.2"
-                material="src: #video; opacity: 0; transparent: false; alphaTest: 0.5"
-                animation__fadein="startEvents: fadein; property: material.opacity; from: 0; to: 1; dur: 500;"
-                animation__fadeout="startEvents: fadeout; property: material.opacity; from: 1; to: 0; dur: 500;"></a-plane>
-        </a-entity>
-        <!-- Second AR target entity for the 3D model -->
-        <a-entity id="secondTarget" mindar-image-target="targetIndex: 1" ar-controller>
-            <a-entity id="modelContainer">
-                <a-entity id="modelObject" gltf-model="#mainGateModel" scale="0.004 0.004 0.004" animation="property: rotation; to: 0 360 0; loop: true; dur: 20000" visible="false"></a-entity>
+
+        <!-- Image Targets -->
+        <a-entity id="target-0" mindar-image-target="targetIndex: 0">
+            <!-- Parent entity for alignment -->
+            <a-entity
+                id="model-container-0"
+                position="0 0 0.02"
+                rotation="90 0 0"
+                visible="false">
+                <!-- Child entity for rotation -->
+                <a-entity
+                    gltf-model="#Bridge"
+                    scale="0.004 0.004 0.004"
+                    animation="property: rotation; to: 0 360 0; loop: true; dur: 20000">
+                </a-entity>
             </a-entity>
         </a-entity>
-
-
-
+        <a-entity id="target-1" mindar-image-target="targetIndex: 1">
+            <!-- Parent entity for alignment -->
+            <a-entity
+                id="model-container-1"
+                position="0 0 0.02"
+                rotation="60 0 0"
+                visible="false">
+                <!-- Child entity for rotation -->
+                <a-entity
+                    gltf-model="#Bridge"
+                    scale="0.004 0.004 0.004"
+                    animation="property: rotation; to: 0 360 0; loop: true; dur: 20000">
+                </a-entity>
+            </a-entity>
+        </a-entity>
+        <a-entity id="target-2" mindar-image-target="targetIndex: 2">
+            <!-- Parent entity for alignment -->
+            <a-entity
+                id="model-container-2"
+                position="0 0 0.02"
+                rotation="40 0 0"
+                visible="false">
+                <!-- Child entity for rotation -->
+                <a-entity
+                    gltf-model="#Bridge"
+                    scale="0.004 0.004 0.004"
+                    animation="property: rotation; to: 0 360 0; loop: true; dur: 20000">
+                </a-entity>
+            </a-entity>
+        </a-entity>
     </a-scene>
-</body>
 
+    <script>
+        // Add event listeners to toggle model visibility when targets are found or lost
+        document.querySelectorAll('[mindar-image-target]').forEach((target, index) => {
+            const modelContainer = document.querySelector(`#model-container-${index}`);
+
+            target.addEventListener('targetFound', () => {
+                console.log(`Target ${index} found`);
+                modelContainer.setAttribute('visible', true);
+            });
+
+            target.addEventListener('targetLost', () => {
+                console.log(`Target ${index} lost`);
+                modelContainer.setAttribute('visible', false);
+            });
+        });
+    </script>
+</body>
 </html>
