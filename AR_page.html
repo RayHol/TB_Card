@@ -1,17 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Set the viewport and initial scale for mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Enable full-screen mode on Apple devices -->
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
+    <!-- Set the character encoding -->
     <meta charset="UTF-8" />
+
+    <!-- Include the A-Frame library for WebVR development -->
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    
+    <!-- Include the MIND AR library for augmented reality features -->
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
-    <title>Smartify - Tower Bridge AR Demo</title>
+    
+    <!-- Include the custom JavaScript file for AR functionality -->
+    <script src=".\Scripts\ar_page.js"></script>
+  
+    <!-- Set the title of the webpage -->
+    <title>Smartify - Tower Bridge | 3D Model AR</title>
+    
+    <!-- Include the Poppins font from Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap">
+    
+    <!-- Include the custom CSS file for styling -->
+    <link rel="stylesheet" href=".\Scripts\ar_page.css">
 </head>
 <body>
+    <!-- Scanning Overlay -->
+    <div id="new-scanning-overlay" class="hidden">
+        <div id="icon-wrapper">
+            <img src="./Assets/Scanning-icon.svg" alt="Scanning Icon">
+            <div id="moving-line"></div>
+            <div id="background-in-icon-wrapper"></div>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <button id="backButton" class="back-button"></button>
+
+    <!-- A-Frame Scene -->
     <a-scene
-        mindar-image="imageTargetSrc: ./Assets/targets.mind; warmupTolerance: 10; missTolerance: 1; filterMinCF: 0.0001; filterBeta: 0.001"
+        mindar-image="imageTargetSrc: ./Assets/targets.mind; uiScanning: #new-scanning-overlay; warmupTolerance: 10; missTolerance: 1; filterMinCF: 0.0001; filterBeta: 0.001"
         color-space="sRGB"
         renderer="colorManagement: true, physicallyCorrectLights"
         vr-mode-ui="enabled: false"
@@ -74,6 +106,11 @@
     </a-scene>
 
     <script>
+        // Back Button Functionality
+        document.getElementById('backButton').addEventListener('click', () => {
+            window.location.href = 'index.html'; // Redirect to the index page
+        });
+
         // Add event listeners to toggle model visibility when targets are found or lost
         document.querySelectorAll('[mindar-image-target]').forEach((target, index) => {
             const modelContainer = document.querySelector(`#model-container-${index}`);
