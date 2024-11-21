@@ -29,7 +29,7 @@
     position: absolute;
     width: 90%;
     height: 3px;
-    background-color: #fff;
+    background-color: #ffffff;
     top: 20px;
     left: 5%;
     animation: moveLine 2s linear infinite;
