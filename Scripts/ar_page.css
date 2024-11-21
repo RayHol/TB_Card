@@ -1,3 +1,92 @@
+#new-scanning-overlay.hidden {
+    display: none;
+}
+#new-scanning-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#new-scanning-overlay img {
+    width: 100%;  
+    height: auto;  /* Maintain aspect ratio */
+    position: relative; 
+}
+#icon-wrapper {
+    position: relative;
+    width: 70%;
+}
+#icon-wrapper img {
+    width: 100%;
+    height: auto;
+}
+#moving-line {
+    position: absolute;
+    width: 90%;
+    height: 3px;
+    background-color: #fff;
+    top: 20px;
+    left: 5%;
+    animation: moveLine 2s linear infinite;
+}
+#background-in-icon-wrapper {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: url("../Assets/") no-repeat center center; 
+    background-size: contain;
+    opacity: 0.7;
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+@keyframes moveLine {
+    0% {
+        top: 20px;
+    }
+    50% {
+        top: calc(100% - 20px);
+    }
+    100% {
+        top: 20px;
+    }
+}
+
+/* Landscape styles */
+@media (orientation: landscape) {
+    #icon-wrapper {
+        width: 40%;  /* Reduce the width in landscape mode */
+    }
+}
+
+.hidden {
+    visibility: hidden !important;
+}
+.spinner-container.hidden {
+    visibility: hidden !important;
+}
+.spinner-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #startText, #audioPrompt {
     position: fixed;
     top: 20%;
@@ -16,7 +105,7 @@
     display: none; /* initially hide the text */
 }
 
-#audioPrompt {
+/* #audioPrompt {
     display: none;
     top: 80%;
 }
@@ -42,30 +131,64 @@
     text-transform: uppercase;
     cursor: pointer;
     gap: 8px; 
+} */
+
+#audioPrompt {
+    position: fixed;
+    top: 20px; 
+    right: 10px; 
+    display: none; 
+    z-index: 1000; 
+    margin: 0;
+    transform: none; 
+}
+
+#audioPrompt button {
+    height: 44px;  
+    padding: 10px 20px;
+    background-color: #EEF0F3;
+    color: #1B1B1B;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    letter-spacing: 1.25px;
+    text-transform: uppercase;
+    gap: 8px; 
+}
+
+#audioPrompt img {
+/*     vertical-align: middle; */
+    margin-right: 5px; 
+    width: 16px; 
+    height: 16px;
 }
 
 
-#background {
+/* #background {
     position: fixed;
     top: 50%;
     left: 50%;
-    width: 221px;
-    height: 175px;
+    width: 280px;
+    height: 222px;
     transform: translate(-50%, -50%);
     z-index: 9;
-    background: url("../Assets/Ruinas_02.jpg") no-repeat center center fixed; 
+    background: url("../Assets/LH2up.png") no-repeat center center fixed; 
     background-size: contain;
-    opacity: 0.0;
+    opacity: 0.7;
     border: none;
     border-radius: 8px;
     overflow: hidden; 
-    display: none; /* initially hide the background */
-}
+    display: none; 
+} */
 
 /* New styles for the back button */
 #backButton {
     position: fixed;
-  top: 20px;
+    top: 20px;
     left: 20px;
     width: 93px;  
     height: 44px;  
@@ -79,3 +202,52 @@
 }
 
 
+.text-panel {
+    display: none;
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 16px;
+    z-index: 1000; 
+}
+
+
+/* scrolling text */
+/* .text-panel {
+    position: fixed;
+    bottom: 20px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%; 
+    height: 24px; 
+    padding: 5px 10px; 
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    text-align: left;
+    border-radius: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; 
+    z-index: 1000; 
+}
+
+#textPanelContent {
+    animation: scroll-text 10s linear infinite; 
+}
+
+@keyframes scroll-text {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%); 
+    }
+}
+ */
