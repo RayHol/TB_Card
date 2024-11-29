@@ -12,6 +12,9 @@
 
     <!-- Include the A-Frame library for WebVR development -->
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  
+    <!-- Include the custom A-Frame library for animation-mixer -->
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v5.0.0/dist/aframe-extras.min.js"></script> 
     
     <!-- Include the MIND AR library for augmented reality features -->
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
@@ -69,7 +72,7 @@
                 <a-entity
                     gltf-model="#Bridge"
                     scale="0.004 0.004 0.004"
-                    animation="property: rotation; to: 0 360 0; loop: true; dur: 20000">
+                    animation-mixer>
                 </a-entity>
             </a-entity>
         </a-entity>
@@ -84,7 +87,7 @@
                 <a-entity
                     gltf-model="#Bridge"
                     scale="0.004 0.004 0.004"
-                    animation="property: rotation; to: 0 360 0; loop: true; dur: 20000">
+                    animation-mixer>
                 </a-entity>
             </a-entity>
         </a-entity>
@@ -99,13 +102,15 @@
                 <a-entity
                     gltf-model="#Bridge"
                     scale="0.004 0.004 0.004"
-                    animation="property: rotation; to: 0 360 0; loop: true; dur: 20000">
+                    animation-mixer>
                 </a-entity>
             </a-entity>
         </a-entity>
     </a-scene>
 
     <script>
+        document.getElementById('Bridge').setAttribute('animation-mixer', 'clip:Action');
+      
         // Back Button Functionality
         document.getElementById('backButton').addEventListener('click', () => {
             window.location.href = 'index.html'; // Redirect to the index page
